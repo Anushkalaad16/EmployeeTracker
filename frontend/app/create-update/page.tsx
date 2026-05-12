@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { apiRequest } from "@/lib/api";
+import { toast } from "sonner";
 
 // Hardcode your projects here
 const PROJECTS = [
@@ -26,7 +27,7 @@ export default function CreateUpdatePage() {
     e.preventDefault();
 
     if (!form.projectId) {
-      alert("Please select a project");
+      toast.error("Please select a project");
       return;
     }
 
@@ -37,15 +38,16 @@ export default function CreateUpdatePage() {
         throw new Error(res?.message || "Unknown error");
       }
 
-      alert("Update created successfully!");
+      toast.success("Update created successfully!");
       setForm({ projectId: "", yesterday: "", today: "", blockers: "" });
     } catch (err: any) {
       console.error("Error:", err);
-      alert(err.message || "Failed to create update");
+      toast.error(err.message || "Failed to create update");
     }
   };
 
   return (
+    <>
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="mb-8">
@@ -129,5 +131,7 @@ export default function CreateUpdatePage() {
         </div>
       </div>
     </div>
+    </>
+
   );
 }

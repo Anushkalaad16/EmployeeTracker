@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function SignupPage() {
   
   const handleSignup = async () => {
     if (!form.name || !form.email || !form.password) {
-      alert("All fields are required");
+      toast.error("All fields are required");
       return;
     }
 
@@ -43,12 +44,12 @@ export default function SignupPage() {
         throw new Error(data.message);
       }
 
-      alert("Signup successful");
+      toast.success("Signup successful");
 
     
       router.push("/login");
     } catch (err: any) {
-      alert(err.message);
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }
