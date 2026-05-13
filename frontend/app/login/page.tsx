@@ -21,9 +21,10 @@ export default function LoginPage(){
                 email,
                 password
             });
-
+console.log("LOGIN RESPONSE:", data);
             if(data.token){
-                localStorage.setItem("token",data.token);
+              localStorage.setItem("token", data.token);
+localStorage.setItem("user", JSON.stringify(data.user));
                 router.push("/dashboard");
             }else{
                 setError(data.message || "Login failed");
